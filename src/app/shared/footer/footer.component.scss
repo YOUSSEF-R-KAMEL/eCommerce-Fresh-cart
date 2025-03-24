@@ -1,0 +1,14 @@
+img {
+  width: 40px;
+}
+
+@media (max-width: 991.98px) {
+  .pay-details {
+    flex-direction: column;
+    gap: 15px;
+    img {
+      width: 45px;
+    }
+  }
+}
+
