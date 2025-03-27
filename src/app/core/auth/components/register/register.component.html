@@ -1,150 +1,27 @@
 <section class="bg-main-light shadow rounded-2 p-3 my-4">
   <h1 class="h2 text-main mb-2">Register Now</h1>
   <form [formGroup]="formReg" (ngSubmit)="onRegister()">
-    <div class="mb-2">
-      <label for="name" class="form-label text-capitalize">name</label>
-      <input
-        type="text"
-        class="form-control"
-        id="name"
-        placeholder="Ex. alex jone"
-        formControlName="name"
-        [ngClass]="{
-          'is-valid':
-            !formReg.get('name')?.errors &&
-            (formReg.get('name')?.touched || formReg.get('name')?.dirty),
-          'is-invalid':
-            formReg.get('name')?.errors &&
-            (formReg.get('name')?.touched || formReg.get('name')?.dirty)
-        }"
-      />
-      @if (formReg.get('name')?.errors && (formReg.get('name')?.touched ||
-      formReg.get('name')?.dirty)) { @if
-      (formReg.get('name')?.getError('required')) {
-      <div class="alert alert-danger mt-1">Name is Required</div>
-      } @else if (formReg.get('name')?.getError('minlength')) {
-      <div class="alert alert-danger mt-1">
-        Name Should be more than or equal 3 chars
-      </div>
-      } @else if (formReg.get('name')?.getError('maxlength')) {
-      <div class="alert alert-danger mt-1">
-        Name Should be less than or equal 20 charss
-      </div>
-      } }
-    </div>
-    <div class="mb-2">
-      <label for="email" class="form-label text-capitalize">email</label>
-      <input
-        type="email"
-        class="form-control"
-        id="email"
-        placeholder="Ex. alex@123.com"
-        formControlName="email"
-        [ngClass]="{
-          'is-valid':
-            !formReg.get('email')?.errors &&
-            (formReg.get('email')?.touched || formReg.get('email')?.dirty),
-          'is-invalid':
-            formReg.get('email')?.errors &&
-            (formReg.get('email')?.touched || formReg.get('email')?.dirty)
-        }"
-      />
-      @if(formReg.get('email')?.errors && (formReg.get('email')?.touched ||
-      formReg.get('email')?.dirty)){ @if
-      (formReg.get('email')?.getError('required')) {
-      <div class="alert alert-danger mt-1">Email is Required</div>
-      } @else if (formReg.get('email')?.getError('email')) {
-      <div class="alert alert-danger mt-1">Enter Valid Email</div>
-      } }
-    </div>
-    <div class="mb-2">
-      <label for="phone" class="form-label text-capitalize">phone</label>
-      <input
-        type="text"
-        class="form-control"
-        id="phone"
-        placeholder="Ex. 01210203040"
-        formControlName="phone"
-        [ngClass]="{
-          'is-valid':
-            !formReg.get('phone')?.errors &&
-            (formReg.get('phone')?.touched || formReg.get('phone')?.dirty),
-          'is-invalid':
-            formReg.get('phone')?.errors &&
-            (formReg.get('phone')?.touched || formReg.get('phone')?.dirty)
-        }"
-      />
-      @if(formReg.get('phone')?.errors && (formReg.get('phone')?.touched ||
-      formReg.get('phone')?.dirty)){ @if
-      (formReg.get('phone')?.getError('required')) {
-      <div class="alert alert-danger mt-1">Phone is Required</div>
-      } @else if (formReg.get('phone')?.getError('pattern')) {
-      <div class="alert alert-danger mt-1">
-        accept only egypt phone numbers like (01210203040)
-      </div>
-      } }
-    </div>
-    <div class="mb-2">
-      <label for="password" class="form-label text-capitalize">password</label>
-      <input
-        type="password"
-        class="form-control"
-        id="password"
-        placeholder="Ex. 123456"
-        formControlName="password"
-        [ngClass]="{
-          'is-valid':
-            !formReg.get('password')?.errors &&
-            (formReg.get('password')?.touched ||
-              formReg.get('password')?.dirty),
-          'is-invalid':
-            formReg.get('password')?.errors &&
-            (formReg.get('password')?.touched || formReg.get('password')?.dirty)
-        }"
-      />
-      @if(formReg.get('password')?.errors && (formReg.get('password')?.touched
-      || formReg.get('password')?.dirty)){ @if
-      (formReg.get('password')?.getError('required')) {
-      <div class="alert alert-danger mt-1">Password is Required</div>
-      } @else if (formReg.get('password')?.getError('pattern')) {
-      <div class="alert alert-danger mt-1">must be at least 6 chars</div>
-      } }
-    </div>
-    <div class="mb-2">
-      <label for="rePassword" class="form-label text-capitalize"
-        >rePassword</label
-      >
-      <input
-        type="password"
-        class="form-control"
-        id="rePassword"
-        placeholder="Ex. 123456"
-        formControlName="rePassword"
-        [ngClass]="{
-          'is-valid':
-            !formReg.getError('mismatch') &&
-            (formReg.get('rePassword')?.touched ||
-              formReg.get('rePassword')?.dirty),
-          'is-invalid':
-            formReg.getError('mismatch') &&
-            (formReg.get('rePassword')?.touched ||
-              formReg.get('rePassword')?.dirty)
-        }"
-      />
-      @if(formReg.getError('mismatch') && (formReg.get('rePassword')?.touched ||
-      formReg.get('rePassword')?.dirty)){
-      <div class="alert alert-danger mt-1">Password confirmation is incorrect</div>
+      <!-- Name -->
+      <app-input type="text" label="name" formControlName="name" placeholder="Ex. alex jone" ></app-input>
+      <app-error [control]="formReg.get('name')" type="name"></app-error>
+      <!-- email -->
+      <app-input type="email" label="email" formControlName="email" placeholder="Ex. alex@123.com" ></app-input>
+      <app-error [control]="formReg.get('email')" type="email"></app-error>
+      <!-- phone -->
+      <app-input type="phone" label="phone" formControlName="phone" placeholder="Ex. 01210203040" ></app-input>
+      <app-error [control]="formReg.get('phone')" type="phone"></app-error>
+      <!-- password -->
+      <app-input type="password" label="password" formControlName="password" placeholder="Ex. 123456" ></app-input>
+      <app-error [control]="formReg.get('password')" type="password"></app-error>
+      <!-- rePassword -->
+      <app-input type="password" label="rePassword" formControlName="rePassword" placeholder="Ex. 123456" ></app-input>
+      <app-error [control]="formReg" type="rePassword"></app-error>
 
-      }
-    </div>
     <button [disabled]="formReg.invalid || isLoading" class="btn-main ms-auto d-block" >
       Register
       @if(isLoading){
         <span><i class="fas fa-spin fa-spinner"></i></span>
       }
     </button>
-    @if (msgError) {
-    <div class="alert alert-danger mt-3 w-50 m-auto">{{ msgError }}</div>
-    }
   </form>
 </section>

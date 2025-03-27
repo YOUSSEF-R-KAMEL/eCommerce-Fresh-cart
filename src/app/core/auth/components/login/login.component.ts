@@ -1,24 +1,28 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import {Router} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { IResponse } from '../../models/IResponse';
+import { InputComponent } from '../../../../shared/input/input.component';
+import { ErrorComponent } from "../../../../shared/error/error.component";
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, InputComponent, ErrorComponent, RouterLink],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
-  msgError:string = '';
   isLoading:boolean = false;
   formLogin!:FormGroup
-  private readonly _AuthService = inject(AuthService)
+  private readonly _authService = inject(AuthService)
   private readonly fb = inject(FormBuilder)
   private readonly _route = inject(Router)
+  private readonly _toastr = inject(ToastrService)
+
   constructor(){
     this.formLogin = this.fb.group({
       email: [null, [Validators.required, Validators.email]],
@@ -28,16 +32,21 @@ export class LoginComponent {
 
   loginForm(){
     if(this.formLogin.valid){
-      this._AuthService.setLoginForm(this.formLogin.value).subscribe({
+      this.isLoading = true;
+      this._authService.login(this.formLogin.value).subscribe({
         next: (res:IResponse) => {
-
+          console.log(res)
+          this._authService.saveInfo(res.token)
+          this._toastr.success('Login Successful!', 'Success');
+          this.isLoading = false
         },
         error: (err) =>{
-          this.msgError = err.error.message
           console.log(err)
+          this._toastr.error(err.error.message, 'Error');
+          this.isLoading = false
         },
         complete: () => {
-
+          this._route.navigate(['/home']);
         }
       })
     }

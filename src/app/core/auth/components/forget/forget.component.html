@@ -1,0 +1,49 @@
+<section class="bg-main-light shadow rounded-2 p-3">
+  <!-- Forget Password -->
+  @if(step == 1){
+    <h1 class="h2 text-main mb-2 fw-medium">Forget Password</h1>
+    <form [formGroup]="formForget" (ngSubmit)="forgetForm()">
+      <app-input type="email" label="email" formControlName="email" placeholder="Ex. alex@123.com" ></app-input>
+      <app-error [control]="formForget.get('email')" type="email"></app-error>
+      <button [disabled]="isLoading" class="btn-main ms-auto d-block" >
+        Send Code
+        @if(isLoading){
+          <span><i class="fas fa-spin fa-spinner"></i></span>
+        }
+      </button>
+    </form>
+  }
+  @else if(step === 2){
+    <!-- Verify Code -->
+    <h1 class="h2 text-main mb-2">Verify Code</h1>
+    <form [formGroup]="formVerify" (ngSubmit)="verifyForm()">
+      <app-input type="text" label="code" formControlName="resetCode" placeholder="Ex. 123456" ></app-input>
+      <app-error [control]="formVerify.get('resetCode')" type="resetCode"></app-error>
+      <button [disabled]="isLoading" class="btn-main ms-auto d-block" >
+        Verify
+        @if(isLoading){
+          <span><i class="fas fa-spin fa-spinner"></i></span>
+        }
+      </button>
+    </form>
+  }
+  @else if(step === 3){
+    <!-- Reset Password -->
+    <h1 class="h2 text-main mb-2">Reset Password</h1>
+    <form [formGroup]="formReset" (ngSubmit)="resetForm()">
+      <!-- email -->
+      <app-input type="email" label="email" formControlName="email" placeholder="Ex. alex@123.com" ></app-input>
+      <app-error [control]="formReset.get('email')" type="email"></app-error>
+      <!-- password -->
+      <app-input type="password" label="New Password" formControlName="newPassword" placeholder="Ex. 123456" ></app-input>
+      <app-error [control]="formReset.get('newPassword')" type="password"></app-error>
+      <button [disabled]="isLoading" class="btn-main ms-auto d-block" >
+        Login
+        @if(isLoading){
+          <span><i class="fas fa-spin fa-spinner"></i></span>
+        }
+      </button>
+    </form>
+  }
+
+</section>

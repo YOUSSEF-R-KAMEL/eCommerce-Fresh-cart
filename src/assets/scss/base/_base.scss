@@ -22,8 +22,9 @@ input , button {
   outline: none;
 }
 
-nav a {
+nav .nav-link {
   cursor: pointer;
+  padding: 5px 8px;
   &:not(:has(i)) {
     border-radius: 6px;
     margin: 0 2px;

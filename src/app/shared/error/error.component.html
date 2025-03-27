@@ -1,0 +1,50 @@
+@if (control?.errors && (control?.touched || control?.dirty)) {
+  <p class="text-danger">
+    <!-- Required Errors -->
+    @if (control?.getError('required')) {
+      @if (type === 'name') { Name is Required }
+      @if (type === 'email') { Email is Required }
+      @if (type === 'phone') { Phone is Required }
+      @if (type === 'password') { Password is Required }
+      @if (type === 'resetCode') { Code is Required }
+    }
+
+    <!-- Name Validation -->
+    @if (type === 'name') {
+      @if (control?.getError('minlength')) {
+        Name should be at least 3 characters
+      }
+      @if (control?.getError('maxlength')) {
+        Name should be at most 20 characters
+      }
+    }
+
+    <!-- Email Validation -->
+    @if (type === 'email' && control?.getError('email')) { Enter a valid email }
+
+    <!-- Phone Validation -->
+    @if (type === 'phone' && control?.getError('pattern')) {
+      Accept only Egypt phone numbers like (01210203040)
+    }
+
+    <!-- Password Validation -->
+    @if (type === 'password' && control?.getError('pattern')) {
+      Must be at least 6 characters
+    }
+
+    <!-- RePassword Validation -->
+    @if (type === 'rePassword' && control?.getError('mismatch')) {
+      Password confirmation is incorrect
+    }
+
+    <!-- Code Validation -->
+    @if (type === 'resetCode') {
+      @if (control?.getError('minlength')) {
+        Code should be 5 characters
+      }
+      @if (control?.getError('maxlength')) {
+        Code should be exactly 6 characters
+      }
+    }
+  </p>
+}

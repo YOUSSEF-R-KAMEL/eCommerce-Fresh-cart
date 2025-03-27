@@ -1,9 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable, } from 'rxjs';
-import { environment } from '../../../../environments/environment';
-import { jwtDecode } from 'jwt-decode';
-import { IResponse } from '../models/IResponse';
+import { IResponse, IUser } from '../models/IResponse';
 import { IRegister } from '../models/IRegister';
 import { ILogin } from '../models/ILogin';
 
@@ -11,21 +9,29 @@ import { ILogin } from '../models/ILogin';
   providedIn: 'root'
 })
 export class AuthService {
-
   private readonly _httpClient = inject(HttpClient)
-  userData:any
-  setRegisterForm(data:IRegister):Observable<IResponse>{
-    return this._httpClient.post<IResponse>(`${environment.baseUrl}api/v1/auth/signup`, data)
+
+  register(data:IRegister):Observable<IResponse>{
+    return this._httpClient.post<IResponse>('auth/signup', data)
+  }
+  login(data:ILogin):Observable<IResponse>{
+    return this._httpClient.post<IResponse>('auth/signin', data)
+  }
+  forgetPassword(email:string):Observable<IResponse>{
+    return this._httpClient.post<IResponse>('auth/forgotPasswords', email)
+  }
+  verifyResetCode(resetCode:string):Observable<IResponse>{
+    return this._httpClient.post<IResponse>('auth/verifyResetCode', resetCode)
+  }
+  resetCode(data:ILogin):Observable<IResponse>{
+    return this._httpClient.put<IResponse>('auth/resetPassword', data)
   }
 
-  setLoginForm(data:ILogin):Observable<IResponse>{
-    return this._httpClient.post<IResponse>(`${environment.baseUrl}api/v1/auth/signin`, data)
+  saveInfo(token:string){
+    localStorage.setItem('token', token)
   }
 
-  saveUserData(){
-    if(localStorage.getItem('userToken') !== null) {
-      this.userData = jwtDecode(localStorage.getItem('userToken') !)
-    }
-    console.log(this.userData)
+  deleteInfo(){
+    localStorage.removeItem('token')
   }
 }

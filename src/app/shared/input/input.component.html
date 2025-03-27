@@ -1,0 +1,21 @@
+<div class="input-container mt-3">
+  <label [for]="label" class="form-label text-capitalize">{{label}}</label>
+  <div class="input-group mb-3">
+    <input
+      class="form-control"
+      [type]="showPassword ? 'text' : type"
+      [placeholder]="placeholder"
+      [id]="label"
+      [value]="value"
+      (input)="handleInput($event)"
+      (blur)="onTouched()"
+      aria-label="Username"
+      aria-describedby="basic-addon1"
+    />
+    @if (type == 'password') {
+      <span class="input-group-text" id="basic-addon1" (click)="togglePassword()">
+        <i class="fa-solid" [class]="!showPassword ? 'fa-eye' : 'fa-eye-slash'" ></i>
+      </span>
+    }
+</div>
+</div>

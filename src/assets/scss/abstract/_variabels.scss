@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 
 
-$main-color: #0aad0a;
+$main-color: #1f65ac;
 $light-color: #f8f9fa;
 $shadow: rgba(145, 158, 171, 0.2) 0px 2px 4px -1px,
   rgba(145, 158, 171, 0.14) 0px 4px 5px 0px,
@@ -21,27 +21,56 @@ $rating-color: #ffc908;
 .bg-main {
   background-color: $main-color !important;
 }
+
+.border-main {
+  border: 1px solid $main-color;
+}
+
 .bg-main-light {
   background-color: $light-color !important;
 }
 
 .btn-main {
+  outline: none !important;
+  border: none !important;
+  cursor: pointer;
   background-color: $main-color;
   padding: 7px 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
   color: #fff;
-  cursor: pointer;
-  transition: .5s;
+  transition: background-color .7s;
+  &:hover {
+    background-color: #0654a1;
+  }
+  &:disabled {
+    cursor: not-allowed;
+    background-color: #ccc;
+  }
+  &:disabled:hover {
+    background-color: #ccc;
+  }
 }
 
-.btn-main:disabled {
-  cursor: not-allowed;
-  background-color: #ccc;
+.desc {
+  color: #777;
 }
-.btn-main:disabled:hover {
-  background-color: #ccc;
+
+.stars {
+  --percent: calc(var(--rating) / 5 * 100%);
+  font-size: 16px;
+  margin-bottom: 25px;
+  font-family: Times;
+  line-height: 1;
+  width: 100%;
+  text-align: center;
+  margin-top: 10px;
+  &::before {
+    content: '⭐⭐⭐⭐⭐';
+    background: linear-gradient(90deg, #fc0 var(--percent), #ddd var(--percent));
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
 }
-.btn-main:hover {
-  background-color: #0e3863;
-}
+
+
